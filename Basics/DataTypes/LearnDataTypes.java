@@ -1,3 +1,4 @@
+package DataTypes;
 /*
 Definition : Data Types in Java Data types in Java are of different sizes and values that can be stored in 
 the variable that is made as per convenience and circumstances to cover up all test cases.Java has 
@@ -24,6 +25,7 @@ public class LearnDataTypes {
         double doubleVar;
 
         // Initializing variables
+        booleanVar = true;
         charVar = 'G';
         intVar = 89;
         byteVar = 4;
@@ -31,7 +33,7 @@ public class LearnDataTypes {
         doubleVar = 4.355453532;
         floatVar = 4.7333434f;
         longVar = 12121;
-        booleanVar = true;
+
 
         // Printing the values
         System.out.println("char: " + charVar);
