@@ -49,6 +49,30 @@ Welcome to the **Java Tutorials** repository! This collection of tutorials is de
     - [11. **Java 8 Features**](#11-java-8-features)
       - [11.1 **Lambda Expressions**](#111-lambda-expressions)
       - [11.2 **Stream API**](#112-stream-api)
+    - [Advanced Topics in Java](#advanced-topics-in-java)
+    - [1. **Generics**](#1-generics)
+      - [Example: Generic Class](#example-generic-class)
+    - [2. **Annotations**](#2-annotations)
+      - [Example: Custom Annotations](#example-custom-annotations)
+    - [3. **Reflection**](#3-reflection)
+      - [Example: Reflection in Java](#example-reflection-in-java)
+    - [4. **Java Stream API**](#4-java-stream-api)
+      - [Example: Filtering and Mapping Using Streams](#example-filtering-and-mapping-using-streams)
+    - [5. **Lambda Expressions**](#5-lambda-expressions)
+      - [Example: Lambda Expression](#example-lambda-expression)
+    - [6. **Concurrency and Multithreading**](#6-concurrency-and-multithreading)
+      - [Example: Multithreading with `Runnable`](#example-multithreading-with-runnable)
+      - [Thread Synchronization:](#thread-synchronization)
+    - [7. **JVM Internals**](#7-jvm-internals)
+      - [Key Concepts:](#key-concepts)
+      - [Example: JVM Architecture](#example-jvm-architecture)
+    - [8. **Design Patterns**](#8-design-patterns)
+      - [Example: Singleton Pattern](#example-singleton-pattern)
+    - [9. **JDBC (Java Database Connectivity)**](#9-jdbc-java-database-connectivity)
+      - [Example: JDBC MySQL Connection](#example-jdbc-mysql-connection)
+    - [10. **Java Networking**](#10-java-networking)
+      - [Example: Socket Programming](#example-socket-programming)
+    - [11. **Java Memory Management and Garbage Collection**](#11-java-memory-management-and-garbage-collection)
 
 ## Introduction
 
@@ -480,3 +504,302 @@ numbers.forEach(n -> System.out.println(n));
 List<String> names = Arrays.asList("John", "Jane", "Tom");
 names.stream().filter(n -> n.startsWith("J")).forEach(System.out::println);
 ```
+### Advanced Topics in Java
+
+As you move beyond the basics of Java, there are several advanced topics and concepts that are crucial for building robust, high-performance, and scalable applications. Here are some advanced topics in Java that you should be familiar with:
+
+---
+
+### 1. **Generics**
+Generics allow you to define classes, interfaces, and methods with a placeholder for types, providing type safety at compile time. This helps in reusing code and ensures that the code is type-safe.
+
+#### Example: Generic Class
+```java
+class Box<T> {
+    private T value;
+    
+    public void setValue(T value) {
+        this.value = value;
+    }
+    
+    public T getValue() {
+        return value;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Box<Integer> integerBox = new Box<>();
+        integerBox.setValue(123);
+        System.out.println(integerBox.getValue());
+        
+        Box<String> stringBox = new Box<>();
+        stringBox.setValue("Java");
+        System.out.println(stringBox.getValue());
+    }
+}
+```
+
+---
+
+### 2. **Annotations**
+Annotations are metadata tags used to provide additional information about the code. They do not directly affect the program's execution but are used by the compiler and JVM.
+
+#### Example: Custom Annotations
+```java
+@interface MyAnnotation {
+    String value();
+}
+
+@MyAnnotation(value = "Test Annotation")
+class MyClass {
+    public void display() {
+        System.out.println("This is a method with a custom annotation.");
+    }
+}
+```
+
+Common Java annotations include:
+- `@Override`: Indicates that a method overrides a method in a superclass.
+- `@Deprecated`: Marks a method or class as deprecated.
+- `@SuppressWarnings`: Suppresses compiler warnings for the annotated element.
+
+---
+
+### 3. **Reflection**
+Reflection allows you to inspect and manipulate classes, methods, fields, and constructors at runtime. It's commonly used in frameworks, libraries, and testing to dynamically inspect objects and their behavior.
+
+#### Example: Reflection in Java
+```java
+import java.lang.reflect.Method;
+
+class Person {
+    public void sayHello() {
+        System.out.println("Hello!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        Class<?> personClass = Class.forName("Person");
+        Object personInstance = personClass.newInstance();
+        
+        Method method = personClass.getMethod("sayHello");
+        method.invoke(personInstance);  // Output: Hello!
+    }
+}
+```
+
+---
+
+### 4. **Java Stream API**
+Introduced in Java 8, the **Stream API** provides a functional programming approach to processing collections of objects. It allows operations like filtering, mapping, and reducing data in a concise and readable manner.
+
+#### Example: Filtering and Mapping Using Streams
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("John", "Jane", "Jack", "Tom");
+        names.stream()
+             .filter(name -> name.startsWith("J"))
+             .map(String::toUpperCase)
+             .forEach(System.out::println);
+    }
+}
+```
+
+---
+
+### 5. **Lambda Expressions**
+Lambda expressions were introduced in Java 8 and enable you to pass functions as arguments or return them as results. They provide a more concise and functional approach to coding, especially when working with interfaces.
+
+#### Example: Lambda Expression
+```java
+interface MathOperation {
+    int operate(int a, int b);
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MathOperation addition = (a, b) -> a + b;
+        System.out.println(addition.operate(5, 3));  // Output: 8
+    }
+}
+```
+
+---
+
+### 6. **Concurrency and Multithreading**
+Java supports multithreading, allowing you to execute multiple threads concurrently. It's crucial for developing high-performance and responsive applications, especially in environments where multiple tasks are executed simultaneously (e.g., web servers).
+
+#### Example: Multithreading with `Runnable`
+```java
+class MyRunnable implements Runnable {
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println(Thread.currentThread().getName() + " is running");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Thread thread1 = new Thread(new MyRunnable(), "Thread 1");
+        Thread thread2 = new Thread(new MyRunnable(), "Thread 2");
+        
+        thread1.start();
+        thread2.start();
+    }
+}
+```
+
+#### Thread Synchronization:
+Synchronization is necessary when multiple threads are trying to access shared resources.
+
+```java
+class Counter {
+    private int count = 0;
+    
+    public synchronized void increment() {
+        count++;
+    }
+    
+    public int getCount() {
+        return count;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Counter counter = new Counter();
+        
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                counter.increment();
+            }
+        });
+        
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                counter.increment();
+            }
+        });
+        
+        t1.start();
+        t2.start();
+        
+        t1.join();
+        t2.join();
+        
+        System.out.println("Final count: " + counter.getCount());  // Output: 2000
+    }
+}
+```
+
+---
+
+### 7. **JVM Internals**
+The Java Virtual Machine (JVM) is an integral part of Java that allows it to be platform-independent. Understanding how the JVM works is crucial for advanced Java development, as it directly impacts application performance and memory management.
+
+#### Key Concepts:
+- **ClassLoader**: Loads Java classes into memory.
+- **Memory Management**: Divided into areas such as the Heap, Stack, Method Area, and more.
+- **Garbage Collection**: Automatically manages memory by removing unused objects.
+
+#### Example: JVM Architecture
+1. **ClassLoader Subsystem**: Loads classes dynamically as needed.
+2. **Runtime Data Areas**: JVM memory areas (Heap, Stack, Method Area, etc.).
+3. **Execution Engine**: Executes bytecode.
+
+---
+
+### 8. **Design Patterns**
+Design patterns are standard solutions to common problems in software design. Some commonly used design patterns in Java are:
+
+- **Singleton Pattern**: Ensures only one instance of a class exists.
+- **Factory Pattern**: Provides a way to create objects without specifying the exact class.
+- **Observer Pattern**: Allows one object to notify other objects when its state changes.
+
+#### Example: Singleton Pattern
+```java
+class Singleton {
+    private static Singleton instance;
+
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Singleton singleton = Singleton.getInstance();
+    }
+}
+```
+
+---
+
+### 9. **JDBC (Java Database Connectivity)**
+JDBC is a standard Java API that is used to connect and interact with relational databases like MySQL, PostgreSQL, and Oracle.
+
+#### Example: JDBC MySQL Connection
+```java
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "password");
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("CREATE TABLE Students (id INT, name VARCHAR(50))");
+            System.out.println("Table created successfully");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+}
+```
+
+---
+
+### 10. **Java Networking**
+Java provides the `java.net` package for performing networking tasks like socket programming and making HTTP requests.
+
+#### Example: Socket Programming
+```java
+import java.io.*;
+import java.net.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(8080);
+        Socket clientSocket = serverSocket.accept();
+        
+        PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            out.println("Server: " + inputLine);
+        }
+    }
+}
+```
+
+---
+
+### 11. **Java Memory Management and Garbage Collection**
+Understanding Java memory management and garbage collection is critical for building efficient Java applications. Java's automatic garbage collection mechanism helps manage memory, but you can also manually handle memory optimization using techniques like object pooling.
+
+- **Heap Memory**: Where objects are stored.
+- **Stack Memory**: Stores primitive data types and method call details.
